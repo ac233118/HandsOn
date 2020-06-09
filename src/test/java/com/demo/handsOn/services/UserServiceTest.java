@@ -30,7 +30,7 @@ public class UserServiceTest {
 	
 	@Test
 	public void testGetById_withValidUser() {
-		UserEntity user = new UserEntity("Akshay", "Chavan", "ac@hh", 9876543210L);
+		UserEntity user = new UserEntity("Test", "Test", "Test@Email", 9876543210L);
 		when(repository.findById(1)).thenReturn(Optional.of(user));
 		
 		assertEquals(user, service.findUserById(1));
@@ -44,16 +44,16 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void testUpdateUSer_forValidUser() {
+	public void testUpdateUser_forInValidUser() {
 		when(repository.findById(1)).thenReturn(Optional.empty());
 		
-		UserEntity userDetails = new UserEntity("Akshay", "Chavan", "ac@hh", 9876543210L);
+		UserEntity userDetails = new UserEntity("Test", "Test", "Test@email", 9876543210L);
 		assertThrows(ResourceNotFoundException.class, ()->service.updateUSer(1, userDetails));
 	}
 	
 	@Test
 	public void testUpdateUser_withValidUser() {
-		UserEntity user = new UserEntity("Akshay", "Chavan", "ac@hh", 9876543210L);
+		UserEntity user = new UserEntity("Test", "Test", "Test@Email", 9876543210L);
 		when(repository.findById(1)).thenReturn(Optional.of(user));
 		
 		when(repository.save(user)).thenReturn(user);

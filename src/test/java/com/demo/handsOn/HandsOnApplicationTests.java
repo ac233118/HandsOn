@@ -38,17 +38,16 @@ class HandsOnApplicationTests {
 	@Test
 	public void testCreateUser_With_All_Valid_Details() throws Exception {
 
-		UserEntity user = new UserEntity("Akshay", "Chavan", "akshay@gmail.com", 9876543210L);
+		UserEntity user = new UserEntity("Test", "test", "test@gmail.com", 9876543210L);
 		RequestBuilder request = MockMvcRequestBuilders.post("/api/users").contentType("application/json")
 				.content(objectMapper.writeValueAsString(user));
 
 		mockMvc.perform(request).andExpect(status().isCreated());
 
-		UserEntity newUser = repository.findByEmail("akshay@gmail.com");
+		UserEntity newUser = repository.findByEmail("test@gmail.com");
 
 		assertEquals(user.getFirstName(), newUser.getFirstName());
 
-		System.out.println("deleting");
 
 		repository.deleteById(newUser.getId());
 	}
@@ -56,7 +55,7 @@ class HandsOnApplicationTests {
 	@Test
 	public void testCreateUser_With_Invalid_Email_Format() throws Exception {
 
-		UserEntity user = new UserEntity("Akshay", "Chavan", "akshay", 9876543210L);
+		UserEntity user = new UserEntity("Test", "Test", "TestEmail", 9876543210L);
 		RequestBuilder request = MockMvcRequestBuilders.post("/api/users").contentType("application/json")
 				.content(objectMapper.writeValueAsString(user));
 
@@ -67,7 +66,7 @@ class HandsOnApplicationTests {
 	@Test
 	public void testCreateUser_With_Duplicate_Email() throws Exception {
 
-		UserEntity user = new UserEntity("Akshay", "Chavan", "akshay@gmail.com", 9876543210L);
+		UserEntity user = new UserEntity("Test", "Test", "Test@gmail.com", 9876543210L);
 
 		repository.save(user);
 		int id = user.getId();
@@ -84,7 +83,7 @@ class HandsOnApplicationTests {
 	@Test
 	public void testCreateUser_With_Null_Email() throws Exception {
 
-		UserEntity user = new UserEntity("Akshay", "Chavan", null, 9876543210L);
+		UserEntity user = new UserEntity("Test", "Test", null, 9876543210L);
 		RequestBuilder request = MockMvcRequestBuilders.post("/api/users").contentType("application/json")
 				.content(objectMapper.writeValueAsString(user));
 
@@ -95,7 +94,7 @@ class HandsOnApplicationTests {
 	@Test
 	public void testCreateUser_With_Null_Name() throws Exception {
 
-		UserEntity user = new UserEntity(null, "Chavan", "akshay1@gmail.com", 9876543210L);
+		UserEntity user = new UserEntity(null, "Test", "Test@gmail.com", 9876543210L);
 		RequestBuilder request = MockMvcRequestBuilders.post("/api/users").contentType("application/json")
 				.content(objectMapper.writeValueAsString(user));
 
@@ -105,7 +104,7 @@ class HandsOnApplicationTests {
 
 	@Test
 	public void testGetUSerById() throws Exception {
-		UserEntity user = new UserEntity("Akshay", "Chavan", "akshay@gmail.com", 9876543210L);
+		UserEntity user = new UserEntity("Test", "Test", "TestEmail@gmail.com", 9876543210L);
 		repository.save(user);
 
 		RequestBuilder request = MockMvcRequestBuilders.get("/api/users/" + user.getId());
@@ -116,7 +115,7 @@ class HandsOnApplicationTests {
 
 	@Test
 	public void testUpdateUser() throws Exception {
-		UserEntity user = new UserEntity("Akshay", "Chavan", "akshay@gmail.com", 9876543210L);
+		UserEntity user = new UserEntity("Test", "Test", "TestEmail@gmail.com", 9876543210L);
 
 		repository.save(user);
 
@@ -126,7 +125,7 @@ class HandsOnApplicationTests {
 				.contentType("application/json").content(objectMapper.writeValueAsString(user));
 		mockMvc.perform(request).andExpect(status().isOk());
 
-		UserEntity updatedUser = repository.findByEmail("akshay@gmail.com");
+		UserEntity updatedUser = repository.findByEmail("TestEmail@gmail.com");
 
 		assertEquals("updated", updatedUser.getFirstName());
 
@@ -135,7 +134,7 @@ class HandsOnApplicationTests {
 
 	@Test
 	public void testGetUserByID_for_Invalid_User_Id() throws Exception {
-		UserEntity user = new UserEntity("Akshay", "Chavan", "akshay@gmail.com", 9876543210L);
+		UserEntity user = new UserEntity("Test", "Test", "TestEmail@gmail.com", 9876543210L);
 
 		repository.save(user);
 
