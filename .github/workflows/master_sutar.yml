@@ -49,5 +49,5 @@ jobs:
       with:
         app-name: 'sutar'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_187523d98d99461cbdebb1a8d9140209 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_969d3ef243f64e75be053bb1ea148c66 }}
         package: '*.jar'
